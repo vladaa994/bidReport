@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head.html :: head"></head>
+
+<nav th:replace="layout/navigation.html :: navigation"></nav>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Users</li>
+        </ol>
+        <h1>Users</h1>
+        <hr>
+        <!-- Icon Cards-->
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Firstname</td>
+                            <td>Lastname</td>
+                            <td>Username</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:block th:each="user,number : ${users}">
+                            <td th:text="${number.index + 1}"></td>
+                            <td th:text="${user.firstname}"></td>
+                            <td th:text="${user.lastname}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td><a th:href="@{/user/edit/{id}(id=${user.id})}"><button type="button" class="btn btn-warning">Edit</button></a></td>
+                            <td><a href="#"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <!-- FOOTER PART -->
+    <footer th:replace="layout/footer.html :: footer"></footer>
+</div>
+<div th:replace="layout/includeScripts.html :: scriptsFragment"></div>
+</body>
+</html>

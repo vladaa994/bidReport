@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head.html :: head"></head>
+
+<nav th:replace="layout/navigation.html :: navigation"></nav>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Create User:</li>
+        </ol>
+        <h3>Create User</h3>
+        <hr>
+        <!-- Icon Cards-->
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <form action="#" th:action="@{/user/edit}" th:method="post" th:object="${editUser}">
+                    <input type="hidden" th:field="*{id}" >
+                    <div class="form-group">
+                        <input class="form-control" type="text" th:field="*{firstname}" th:value="${editUser.firstname}" placeholder="Firstname"><br>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('firstname')}">
+                            <p th:errors="*{firstname}">Firstname Error</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" th:field="*{lastname}" th:value="${editUser.lastname}" placeholder="Lastname"><br>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('lastname')}">
+                            <p th:errors="*{lastname}">Lastname Error</p>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" th:field="*{username}" th:value="${editUser.username}" placeholder="Username"><br>
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}">
+                            <p th:errors="*{username}">Username Error</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <!-- FOOTER PART -->
+    <footer th:replace="layout/footer.html :: footer"></footer>
+</div>
+<div th:replace="layout/includeScripts.html :: scriptsFragment"></div>
+</body>
+</html>
