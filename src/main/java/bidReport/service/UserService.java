@@ -15,4 +15,5 @@ public interface UserService {
     Optional<User> findById(int id);
     User save(User user);
     User update(UserUpdateDto userUpdateDto);
+    void delete(int id);
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User update(UserUpdateDto userUpdateDto) {
         Optional<User> user = userRepository.findById(userUpdateDto.getId());
         if(user.isPresent()) {
@@ -52,5 +54,11 @@ public class UserServiceImpl implements UserService {
         else {
             return null;
         }
+    }
+
+    @Override
+    public void delete(int id) {
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent(u -> userRepository.delete(u));
     }
 }

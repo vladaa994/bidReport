@@ -34,10 +34,36 @@
                             <td th:text="${user.lastname}"></td>
                             <td th:text="${user.username}"></td>
                             <td><a th:href="@{/user/edit/{id}(id=${user.id})}"><button type="button" class="btn btn-warning">Edit</button></a></td>
-                            <td><a href="#"><button type="button" class="btn btn-danger">Delete</button></a></td>
+                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button></td>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete user?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a th:href="@{/user/delete/{id}(id=${user.id})}"><button type="button" class="btn btn-primary">Delete</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                     </tbody>
                 </table>
+                <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+                    <!--Launch demo modal-->
+                <!--</button>-->
+
+
             </div>
         </div>
     </div>
