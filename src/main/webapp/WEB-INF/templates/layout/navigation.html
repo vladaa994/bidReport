@@ -26,7 +26,7 @@
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-wrench"></i>
+                    <i class="fas fa-users"></i>
                     <span class="nav-link-text">Users</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseComponents">
@@ -40,7 +40,7 @@
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponentsClient" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-wrench"></i>
+                    <i class="fas fa-user-tie"></i>
                     <span class="nav-link-text">Clients</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseComponentsClient">
@@ -49,6 +49,20 @@
                     </li>
                     <li>
                         <a href="#">Create</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponentsReport" data-parent="#exampleAccordion">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-link-text">Report</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponentsReport">
+                    <li>
+                        <a th:href="@{/report/list}">List</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/report/create}">Create</a>
                     </li>
                 </ul>
             </li>

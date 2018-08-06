@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head.html :: head"></head>
+
+<nav th:replace="layout/navigation.html :: navigation"></nav>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/}">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">List Report</li>
+        </ol>
+        <h1>Report list</h1>
+        <!--<hr>-->
+        <!-- Icon Cards-->
+        <div class="row">
+            <div class="col-xl-12 col-sm-12 mb-3">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Year</td>
+                            <td>Name</td>
+                            <td>User created</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="report, num : ${reports}">
+                            <td th:text="${num.index + 1}"></td>
+                            <td th:text="${report.reportYear}"></td>
+                            <td th:text="${report.client.name}"></td>
+                            <td th:text="${report.user.username}"></td>
+                            <td><a th:href="@{/report/details/{id}(id=${report.id})}">Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <!-- FOOTER PART -->
+    <footer th:replace="layout/footer.html :: footer"></footer>
+</div>
+<div th:replace="layout/includeScripts.html :: scriptsFragment"></div>
+</body>
+</html>

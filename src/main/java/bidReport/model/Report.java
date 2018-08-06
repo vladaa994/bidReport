@@ -1,7 +1,11 @@
 package bidReport.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by pc-mg on 7/25/2018.
@@ -12,22 +16,25 @@ public class Report {
     private String ownerName;
     private String ownerStreet;
     private String ownerWebsite;
-    private int phone;
+    private Integer phone;
+    private Integer cellPhone;
     private Integer fax;
-    private int pib;
+    private Integer pib;
     private String bankAccount;
     private String email;
-    private int reportNumber;
-    private int reportYear;
+    private Integer reportNumber;
+    private Date reportYear;
+    private String reportIdentification;
     private String reportNote;
-    private double sumPrice;
-    private double pdvValue;
-    private double sumPdv;
+    private Double sumPrice;
+    private Double pdvValue;
+    private Double sumPdv;
     private Client client;
-    private ReportContent reportContent;
+    private List<ReportContent> reportContent;
     private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -69,12 +76,22 @@ public class Report {
 
     @Basic
     @Column(name = "phone")
-    public int getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(Integer phone) {
         this.phone = phone;
+    }
+
+    @Basic
+    @Column(name = "cell_phone")
+    public Integer getCellPhone() {
+        return cellPhone;
+    }
+
+    public void setCellPhone(Integer cellPhone) {
+        this.cellPhone = cellPhone;
     }
 
     @Basic
@@ -119,22 +136,32 @@ public class Report {
 
     @Basic
     @Column(name = "report_number")
-    public int getReportNumber() {
+    public Integer getReportNumber() {
         return reportNumber;
     }
 
-    public void setReportNumber(int reportNumber) {
+    public void setReportNumber(Integer reportNumber) {
         this.reportNumber = reportNumber;
     }
 
     @Basic
     @Column(name = "report_year")
-    public int getReportYear() {
+    public Date getReportYear() {
         return reportYear;
     }
 
-    public void setReportYear(int reportYear) {
+    public void setReportYear(Date reportYear) {
         this.reportYear = reportYear;
+    }
+
+    @Basic
+    @Column(name = "report_identification")
+    public String getReportIdentification() {
+        return reportIdentification;
+    }
+
+    public void setReportIdentification(String reportIdentification) {
+        this.reportIdentification = reportIdentification;
     }
 
     @Basic
@@ -178,23 +205,22 @@ public class Report {
     }
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     public Client getClient() {
         return client;
     }
 
-    public void setClient(Client clientByClientId) {
-        this.client= clientByClientId;
+    public void setClient(Client client) {
+        this.client= client;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "report_content_id", referencedColumnName = "id", nullable = false)
-    public ReportContent getReportContent() {
+    @OneToMany(mappedBy = "report", fetch = FetchType.EAGER)
+    public List<ReportContent> getReportContent() {
         return reportContent;
     }
 
-    public void setReportContent(ReportContent reportContent) {
+    public void setReportContent(List<ReportContent> reportContent) {
         this.reportContent = reportContent;
     }
 
@@ -204,7 +230,7 @@ public class Report {
         return user;
     }
 
-    public void setUser(User userByUserId) {
-        this.user = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

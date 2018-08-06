@@ -1,5 +1,8 @@
 package bidReport.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -24,7 +27,7 @@ public class User {
     private String lastname;
     @Size(min = 4, message = "Password must contain at least 4 characters.")
     private String password;
-    private List<Report> reports;
+//    private List<Report> reports;
 
     public User() {
     }
@@ -59,6 +62,7 @@ public class User {
 
     @Basic
     @Column(name = "firstname")
+    @JsonIgnore
     public String getFirstname() {
         return firstname;
     }
@@ -69,6 +73,7 @@ public class User {
 
     @Basic
     @Column(name = "lastname")
+    @JsonIgnore
     public String getLastname() {
         return lastname;
     }
@@ -79,6 +84,7 @@ public class User {
 
     @Basic
     @Column(name = "password")
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -88,12 +94,13 @@ public class User {
     }
 
 
-    @OneToMany(mappedBy = "user")
-    public List<Report> getReports() {
-        return reports;
-    }
-
-    public void setReports(List<Report> reportsById) {
-        this.reports = reportsById;
-    }
+//    @OneToMany(mappedBy = "user")
+//    @JsonBackReference
+//    public List<Report> getReports() {
+//        return reports;
+//    }
+//
+//    public void setReports(List<Report> reportsById) {
+//        this.reports = reportsById;
+//    }
 }

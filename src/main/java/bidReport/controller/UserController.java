@@ -1,6 +1,6 @@
 package bidReport.controller;
 
-import bidReport.UserUpdateDto;
+import bidReport.dto.UserUpdateDto;
 import bidReport.model.User;
 import bidReport.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,9 +69,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String delete(@PathVariable("id") int id, Model model) {
+    public ModelAndView delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "user/list";
+        return new ModelAndView("redirect:/user/list");
     }
 
 }

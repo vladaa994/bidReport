@@ -11,22 +11,87 @@
             <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Create User:</li>
+            <li class="breadcrumb-item active">Create Report:</li>
         </ol>
-        <h3>Create User</h3>
+        <h3>Create Report</h3>
         <hr>
         <!-- Icon Cards-->
         <div class="row">
-            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="col-xl-12 col-md-12 mb-3">
+                    <form id="reportForm" action="#" th:object="${report}">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" id="reportNumber" class="form-control" th:field="*{reportNumber}" placeholder="Report Number">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="reportNote" class="form-control" th:field="*{reportNote}" placeholder="Report Note">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" id="clientName" class="form-control" th:field="*{client.name}" placeholder="Client name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="clientStreet" class="form-control" th:field="*{client.street}" placeholder="Client street">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="clientPib" class="form-control" th:field="*{client.pib}" placeholder="Client PIB">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="reportArea">
+                                    <div id="reportFields">
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <input id="serialNumber0" type="text" class="form-control" th:field="*{reportContent[0].serialNumber}" placeholder="Serial N.">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <textarea id="content0" type="text" class="form-control" th:field="*{reportContent[0].content}" placeholder="Content"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <input id="qty0" type="text" class="form-control" th:field="*{reportContent[0].qty}" placeholder="Quantity">
+                                                </div>
+                                            </div>
 
-            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <input type="text" id="unitMeasure0" class="form-control" th:field="*{reportContent[0].unitMeasure}" placeholder="Unit Of Measure">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <input type="text" id="pricePerMeasure0" class="form-control" th:field="*{reportContent[0].pricePerMeasure}" placeholder="Price Per Measure">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="#" th:onclick="'addField()'"><span id="addReportContent"><i class="fas fa-plus-circle"></i></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="reportSubmit" th:onclick="'saveReport()'" class="btn btn-success">Create Report</button>
+                    </form>
+                </div>
         </div>
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
     <!-- FOOTER PART -->
     <footer th:replace="layout/footer.html :: footer"></footer>
+
 </div>
 <div th:replace="layout/includeScripts.html :: scriptsFragment"></div>
+<script type="text/javascript">
+</script>
 </body>
 </html>

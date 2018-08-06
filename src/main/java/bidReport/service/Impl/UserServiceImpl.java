@@ -1,6 +1,6 @@
 package bidReport.service.Impl;
 
-import bidReport.UserUpdateDto;
+import bidReport.dto.UserUpdateDto;
 import bidReport.model.User;
 import bidReport.repository.UserRepository;
 import bidReport.service.UserService;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +39,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
     @Transactional
     public User update(UserUpdateDto userUpdateDto) {
         Optional<User> user = userRepository.findById(userUpdateDto.getId());

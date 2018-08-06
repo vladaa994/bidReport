@@ -1,25 +1,24 @@
 package bidReport.model;
 
 import javax.persistence.*;
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by pc-mg on 7/25/2018.
  */
 @Entity
-@Table(name = "report_content", schema = "public", catalog = "bidreport")
+@Table(name = "report_content")
 public class ReportContent {
     private int id;
     private Integer serialNumber;
     private String content;
-    private int qty;
+    private Integer qty;
     private String unitMeasure;
-    private BigInteger pricePerMeasure;
-    private List<Report> reports;
+    private Double pricePerMeasure;
+    private Report report;
+
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -51,11 +50,11 @@ public class ReportContent {
 
     @Basic
     @Column(name = "qty")
-    public int getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
@@ -71,20 +70,21 @@ public class ReportContent {
 
     @Basic
     @Column(name = "price_per_measure")
-    public BigInteger getPricePerMeasure() {
+    public Double getPricePerMeasure() {
         return pricePerMeasure;
     }
 
-    public void setPricePerMeasure(BigInteger pricePerMeasure) {
+    public void setPricePerMeasure(Double pricePerMeasure) {
         this.pricePerMeasure = pricePerMeasure;
     }
 
-    @OneToMany(mappedBy = "reportContent")
-    public List<Report> getReports() {
-        return reports;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "report_id", referencedColumnName = "id", nullable = false)
+    public Report getReport() {
+        return report;
     }
 
-    public void setReports(List<Report> reports) {
-        this.reports = reports;
+    public void setReport(Report report) {
+        this.report = report;
     }
 }

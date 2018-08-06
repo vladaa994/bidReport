@@ -4,13 +4,13 @@ package bidReport.enums;
  * Created by pc-mg on 7/25/2018.
  */
 public enum OwnerEnum {
-    ownerName("MLINOGRADNJA doo Kac"),
-    ownerAccount("Tek.racun.br: 340-11007701-89 ERSTE BANKA Novi Sad"),
-    ownerPIB("107447278"),
-    ownerPhone("021-6210-006"),
-    ownerCellPhone("064-11-8-22-92"),
-    ownerEmail("momirmirkovic@yahoo.com"),
-    ownerAddress("Slavka Rodica 37 21241 Kac");
+    OWNER_NAME("MLINOGRADNJA doo Kac"),
+    OWNER_ACCOUNT("Tek.racun.br: 340-11007701-89 ERSTE BANKA Novi Sad"),
+    OWNER_PIB("107447278"),
+    OWNER_PHONE("0216210006"),
+    OWNER_CELL_PHONE("0641182292"),
+    OWNER_EMAIL("momirmirkovic@yahoo.com"),
+    OWNER_ADDRESS("Slavka Rodica 37 21241 Kac");
 
 
 

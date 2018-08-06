@@ -12,10 +12,11 @@ public class Client {
     private int id;
     private String name;
     private String street;
-    private int pib;
+    private Integer pib;
     private List<Report> reports;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -47,11 +48,11 @@ public class Client {
 
     @Basic
     @Column(name = "pib")
-    public int getPib() {
+    public Integer getPib() {
         return pib;
     }
 
-    public void setPib(int pib) {
+    public void setPib(Integer pib) {
         this.pib = pib;
     }
 
