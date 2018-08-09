@@ -22,10 +22,10 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <input type="text" id="reportNumber" class="form-control" th:field="*{reportNumber}" placeholder="Report Number">
+                                    <input type="text" id="reportNumber" class="form-control" th:field="*{reportNumber}" placeholder="Report Number" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="reportNote" class="form-control" th:field="*{reportNote}" placeholder="Report Note">
+                                    <input type="text" id="reportNote" class="form-control" th:field="*{reportNote}" placeholder="Report Note" required>
                                 </div>
                             </div>
                             <div class="col-md-8">
@@ -80,6 +80,26 @@
                             </div>
                         </div>
                         <button type="button" id="reportSubmit" th:onclick="'saveReport()'" class="btn btn-success">Create Report</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Report</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Generate pdf file for this report.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a id="pdfUrl"><button type="button" class="btn btn-primary">Generate PDF</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
         </div>

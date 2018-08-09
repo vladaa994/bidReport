@@ -1,5 +1,7 @@
 package bidReport.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -78,8 +80,9 @@ public class ReportContent {
         this.pricePerMeasure = pricePerMeasure;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "report_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "report_id", referencedColumnName = "id")
+    @JsonIgnore
     public Report getReport() {
         return report;
     }

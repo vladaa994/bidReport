@@ -86,6 +86,8 @@ let postData = (url, data) => {
         success: (response) => {
             console.log(response);
             document.getElementById("reportForm").reset();
+            $("#pdfUrl").attr('href', 'http://localhost:8080/report/pdf/' + response.id);
+            $("#exampleModal").modal();
         },
         error: (error) => {
             console.log(error);

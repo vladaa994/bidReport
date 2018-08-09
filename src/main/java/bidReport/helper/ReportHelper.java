@@ -1,5 +1,6 @@
 package bidReport.helper;
 
+import bidReport.dto.ReportPdfDto;
 import bidReport.enums.OwnerEnum;
 import bidReport.model.Report;
 import org.springframework.stereotype.Component;
@@ -41,5 +42,38 @@ public class ReportHelper {
         report.setBankAccount(OwnerEnum.OWNER_ACCOUNT.getContent());
         report.setEmail(OwnerEnum.OWNER_EMAIL.getContent());
         report.setPib(Integer.valueOf(OwnerEnum.OWNER_PIB.getContent()));
+    }
+
+    public ReportPdfDto setReportPdf(Report reportPdf) {
+        ReportPdfDto pdf = new ReportPdfDto();
+        //add 0 to phone number
+        DecimalFormat df = new DecimalFormat("0000000000");
+        String phone = df.format(reportPdf.getPhone());
+        DecimalFormat cff = new DecimalFormat("0000000000");
+        String cellPhone = cff.format(reportPdf.getCellPhone());
+        pdf.setPhone(phone);
+        pdf.setCellPhone(cellPhone);
+        pdf.setOwnerName(reportPdf.getOwnerName());
+        pdf.setOwnerStreet(reportPdf.getOwnerStreet());
+        pdf.setOwnerWebsite(reportPdf.getOwnerWebsite());
+        pdf.setFax(reportPdf.getFax());
+        pdf.setPib(reportPdf.getPib());
+        pdf.setBankAccount(reportPdf.getBankAccount());
+        pdf.setEmail(reportPdf.getEmail());
+        pdf.setReportNumber(reportPdf.getReportNumber());
+        pdf.setReportYear(reportPdf.getReportYear());
+        pdf.setReportIdentification(reportPdf.getReportIdentification());
+        pdf.setReportNote(reportPdf.getReportNote());
+        pdf.setSumPrice(reportPdf.getSumPrice());
+        pdf.setPdvValue(reportPdf.getPdvValue());
+        pdf.setSumPdv(reportPdf.getSumPdv());
+        pdf.setClientName(reportPdf.getClient().getName());
+        pdf.setClientStreet(reportPdf.getClient().getStreet());
+        pdf.setClientPib(reportPdf.getClient().getPib());
+        pdf.setReportContent(reportPdf.getReportContent());
+        pdf.setUserFirstname(reportPdf.getUser().getFirstname());
+        pdf.setUserLastname(reportPdf.getUser().getLastname());
+
+        return pdf;
     }
 }

@@ -2,13 +2,16 @@ package bidReport.service.Impl;
 
 import bidReport.helper.ReportHelper;
 import bidReport.model.Report;
+import bidReport.model.ReportContent;
 import bidReport.model.User;
 import bidReport.repository.ReportRepository;
+import bidReport.service.ReportContentService;
 import bidReport.service.ReportService;
 import bidReport.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +25,14 @@ public class ReportServiceImpl implements ReportService {
     private ReportRepository reportRepository;
     private UserService userService;
     private ReportHelper reportHelper;
+    private ReportContentService reportContentService;
 
     @Autowired
-    public ReportServiceImpl(ReportRepository reportRepository, UserService userService, ReportHelper reportHelper) {
+    public ReportServiceImpl(ReportRepository reportRepository, UserService userService, ReportHelper reportHelper, ReportContentService reportContentService) {
         this.reportRepository = reportRepository;
         this.userService = userService;
         this.reportHelper = reportHelper;
+        this.reportContentService = reportContentService;
     }
 
     @Override
@@ -57,10 +62,13 @@ public class ReportServiceImpl implements ReportService {
         reportHelper.setOwnerDetails(report);
         report.setReportYear(new Date());
         report.setReportIdentification(reportHelper.generateReportIdentification(report.getReportNumber(), report.getReportYear()));
-        report.setReportContent(report.getReportContent());
+
+        List<ReportContent> reportContents = new ArrayList<>();
+        reportContents.addAll(report.getReportContent());
+        report.addReportContent(reportContents);
+
         //sum price
-        double price = 0;
-        price = report.getReportContent().stream()
+        double price = report.getReportContent().stream()
                 .mapToDouble(p -> p.getPricePerMeasure() * p.getQty())
                 .sum();
         report.setSumPrice(price);
@@ -70,6 +78,7 @@ public class ReportServiceImpl implements ReportService {
         report.setSumPdv(sumPdv);
         user.ifPresent(report::setUser);
         return reportRepository.save(report);
+
     }
 
 

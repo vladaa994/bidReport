@@ -1,32 +1,23 @@
-package bidReport.model;
+package bidReport.dto;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
+import bidReport.model.ReportContent;
+
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by pc-mg on 7/25/2018.
+ * Created by pc-mg on 8/8/2018.
  */
-@Entity
-public class Report {
+public class ReportPdfDto {
     private int id;
-    @Size(min = 2)
     private String ownerName;
-    @Size(min = 5)
     private String ownerStreet;
     private String ownerWebsite;
-    private Integer phone;
-    private Integer cellPhone;
+    private String phone;
+    private String cellPhone;
     private Integer fax;
     private Integer pib;
-    @Size(min = 15)
     private String bankAccount;
-    @Email
     private String email;
     private Integer reportNumber;
     private Date reportYear;
@@ -35,15 +26,13 @@ public class Report {
     private Double sumPrice;
     private Double pdvValue;
     private Double sumPdv;
-    @NotNull
-    private Client client;
-    @NotNull
+    private String clientName;
+    private String clientStreet;
+    private Integer clientPib;
     private List<ReportContent> reportContent;
-    private User user;
+    private String userFirstname;
+    private String userLastname;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -52,8 +41,6 @@ public class Report {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "owner_name")
     public String getOwnerName() {
         return ownerName;
     }
@@ -62,8 +49,6 @@ public class Report {
         this.ownerName = ownerName;
     }
 
-    @Basic
-    @Column(name = "owner_street")
     public String getOwnerStreet() {
         return ownerStreet;
     }
@@ -72,8 +57,6 @@ public class Report {
         this.ownerStreet = ownerStreet;
     }
 
-    @Basic
-    @Column(name = "owner_website")
     public String getOwnerWebsite() {
         return ownerWebsite;
     }
@@ -82,28 +65,22 @@ public class Report {
         this.ownerWebsite = ownerWebsite;
     }
 
-    @Basic
-    @Column(name = "phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    @Basic
-    @Column(name = "cell_phone")
-    public Integer getCellPhone() {
+    public String getCellPhone() {
         return cellPhone;
     }
 
-    public void setCellPhone(Integer cellPhone) {
+    public void setCellPhone(String cellPhone) {
         this.cellPhone = cellPhone;
     }
 
-    @Basic
-    @Column(name = "fax")
     public Integer getFax() {
         return fax;
     }
@@ -112,18 +89,14 @@ public class Report {
         this.fax = fax;
     }
 
-    @Basic
-    @Column(name = "pib")
-    public int getPib() {
+    public Integer getPib() {
         return pib;
     }
 
-    public void setPib(int pib) {
+    public void setPib(Integer pib) {
         this.pib = pib;
     }
 
-    @Basic
-    @Column(name = "bank_account")
     public String getBankAccount() {
         return bankAccount;
     }
@@ -132,8 +105,6 @@ public class Report {
         this.bankAccount = bankAccount;
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -142,8 +113,6 @@ public class Report {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "report_number")
     public Integer getReportNumber() {
         return reportNumber;
     }
@@ -152,8 +121,6 @@ public class Report {
         this.reportNumber = reportNumber;
     }
 
-    @Basic
-    @Column(name = "report_year")
     public Date getReportYear() {
         return reportYear;
     }
@@ -162,8 +129,6 @@ public class Report {
         this.reportYear = reportYear;
     }
 
-    @Basic
-    @Column(name = "report_identification")
     public String getReportIdentification() {
         return reportIdentification;
     }
@@ -172,8 +137,6 @@ public class Report {
         this.reportIdentification = reportIdentification;
     }
 
-    @Basic
-    @Column(name = "report_note")
     public String getReportNote() {
         return reportNote;
     }
@@ -182,48 +145,54 @@ public class Report {
         this.reportNote = reportNote;
     }
 
-    @Basic
-    @Column(name = "sum_price")
-    public double getSumPrice() {
+    public Double getSumPrice() {
         return sumPrice;
     }
 
-    public void setSumPrice(double sumPrice) {
+    public void setSumPrice(Double sumPrice) {
         this.sumPrice = sumPrice;
     }
 
-    @Basic
-    @Column(name = "pdv_value")
-    public double getPdvValue() {
+    public Double getPdvValue() {
         return pdvValue;
     }
 
-    public void setPdvValue(double pdvValue) {
+    public void setPdvValue(Double pdvValue) {
         this.pdvValue = pdvValue;
     }
 
-    @Basic
-    @Column(name = "sum_pdv")
-    public double getSumPdv() {
+    public Double getSumPdv() {
         return sumPdv;
     }
 
-    public void setSumPdv(double sumPdv) {
+    public void setSumPdv(Double sumPdv) {
         this.sumPdv = sumPdv;
     }
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    public Client getClient() {
-        return client;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setClient(Client client) {
-        this.client= client;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "report")
+    public String getClientStreet() {
+        return clientStreet;
+    }
+
+    public void setClientStreet(String clientStreet) {
+        this.clientStreet = clientStreet;
+    }
+
+    public Integer getClientPib() {
+        return clientPib;
+    }
+
+    public void setClientPib(Integer clientPib) {
+        this.clientPib = clientPib;
+    }
+
     public List<ReportContent> getReportContent() {
         return reportContent;
     }
@@ -232,27 +201,19 @@ public class Report {
         this.reportContent = reportContent;
     }
 
-    //achieving relation with ReportContent
-    public void addReportContent(List<ReportContent> content) {
-        this.reportContent = new ArrayList<>();
-        content.forEach(r -> {
-            this.reportContent.add(r);
-            r.setReport(this);
-        });
+    public String getUserFirstname() {
+        return userFirstname;
     }
 
-    public void removeReportContent(ReportContent reportContent) {
-        reportContent.setReport(null);
-        this.reportContent.remove(reportContent);
+    public void setUserFirstname(String userFirstname) {
+        this.userFirstname = userFirstname;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public User getUser() {
-        return user;
+    public String getUserLastname() {
+        return userLastname;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserLastname(String userLastname) {
+        this.userLastname = userLastname;
     }
 }
