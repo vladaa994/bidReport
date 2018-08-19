@@ -11,6 +11,9 @@ import bidReport.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +49,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
 
+
     @Override
     public Report save(Report report) {
         //find user who created report
@@ -53,10 +57,8 @@ public class ReportServiceImpl implements ReportService {
 
         //check if report number is set, if not increment previous by 1
         if(report.getReportNumber() == null) {
-            Report lastReport = reportRepository.findTopByOrderById();
-            if(lastReport != null) {
-                report.setReportNumber(lastReport.getReportNumber() + 1);
-            }
+            int lastReport = reportRepository.findLast();
+            report.setReportNumber( lastReport + 1);
         }
 
         reportHelper.setOwnerDetails(report);

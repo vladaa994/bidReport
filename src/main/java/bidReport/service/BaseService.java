@@ -11,7 +11,7 @@ public interface BaseService<T> {
     List<T> findAll();
     Optional<T> findById(int id);
     T save(T user);
-    default T update(T userUpdateDto){
+    default T update(T user){
         return null;
     }
     void delete(int id);

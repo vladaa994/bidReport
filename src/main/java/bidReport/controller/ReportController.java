@@ -74,18 +74,21 @@ public class ReportController {
     public void generateReportById(@PathVariable int id, HttpServletResponse response) {
         Optional<Report> report = reportService.findById(id);
         List<ReportPdfDto> reports = new ArrayList<>();
-
+        List<ReportContent> reportContents = new ArrayList<>();
         if(report.isPresent()) {
             try {
                 ReportPdfDto reportPdfDto = reportHelper.setReportPdf(report.get());
                 reports.add(reportPdfDto);
+                report.ifPresent(r -> r.getReportContent().forEach(reportContents::add));
                 InputStream jasperStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("reports/bidReport.jrxml");
                 JasperDesign jasperDesign = JRXmlLoader.load(jasperStream);
                 JasperReport report2 = JasperCompileManager.compileReport(jasperDesign);
 
                 Map<String, Object> parameterMap = new HashMap<>();
                 JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
+                JRDataSource jrReportContent = new JRBeanCollectionDataSource(reportContents);
                 parameterMap.put("datasource", jrDataSource);
+                parameterMap.put("reportContent", jrReportContent);
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report2, parameterMap, jrDataSource);
                 response.setContentType("application/x-pdf");
