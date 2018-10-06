@@ -5,3 +5,6 @@
 .reportContent input {
     display: inline-block;
 }
+.fa-file-pdf {
+    color: #dc3545;
+}

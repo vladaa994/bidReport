@@ -34,6 +34,7 @@
                             <td th:text="${report.client.name}"></td>
                             <td th:text="${report.user.username}"></td>
                             <td><a th:href="@{/report/details/{id}(id=${report.id})}">Details</a></td>
+                            <td><a th:href="@{/report/pdf/{id}(id=${report.id})}"><i class="fas fa-file-pdf"></i> PDF</a></td>
                         </tr>
                     </tbody>
                 </table>

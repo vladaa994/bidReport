@@ -1,5 +1,6 @@
 package bidReport.service.Impl;
 
+import bidReport.dto.ReportPdfDto;
 import bidReport.helper.ReportHelper;
 import bidReport.model.Report;
 import bidReport.model.ReportContent;
@@ -8,16 +9,20 @@ import bidReport.repository.ReportRepository;
 import bidReport.service.ReportContentService;
 import bidReport.service.ReportService;
 import bidReport.service.UserService;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.ImagingOpException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by pc-mg on 7/27/2018.
@@ -92,5 +97,33 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void delete(int id) {
 
+    }
+
+    @Override
+    public JasperPrint generateReport(Report report) {
+        List<ReportPdfDto> reports = new ArrayList<>();
+        List<ReportContent> reportContents = new ArrayList<>();
+        JasperPrint jasperPrint = null;
+        try {
+            ReportPdfDto reportPdfDto = reportHelper.setReportPdf(report);
+            reports.add(reportPdfDto);
+            reportContents.addAll(report.getReportContent());
+            reportContents.forEach(rc -> rc.setPricePerMeasure(rc.getQty() * rc.getPricePerMeasure()));
+            InputStream jasperStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("reports/bidReport.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load(jasperStream);
+            JasperReport report2 = JasperCompileManager.compileReport(jasperDesign);
+
+            Map<String, Object> parameterMap = new HashMap<>();
+            JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
+            JRDataSource jrReportContent = new JRBeanCollectionDataSource(reportContents);
+            parameterMap.put("datasource", jrDataSource);
+            parameterMap.put("reportContent", jrReportContent);
+
+            jasperPrint = JasperFillManager.fillReport(report2, parameterMap, jrDataSource);
+        }
+        catch (JRException ex){
+            ex.printStackTrace();
+        }
+        return jasperPrint;
     }
 }
